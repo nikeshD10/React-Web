@@ -5,6 +5,7 @@ import SearchBox from "../components/SearchBox.js";
 import "./App.css";
 import "../fonts/SEGA.TTF";
 import Scroll from "../components/Scroll.js";
+import ErrorBoundry from "../components/ErrorBoundry.js";
 
 export default class App extends Component {
   constructor() {
@@ -42,7 +43,9 @@ export default class App extends Component {
           <h1 className="header">ROBOFRIENDS </h1>
           <SearchBox searchChange={this.onSearchChange} />
           <Scroll>
-            <CardList robots={filterRobots} />;
+            <ErrorBoundry>
+              <CardList robots={filterRobots} />;
+            </ErrorBoundry>
           </Scroll>
         </div>
       </>
