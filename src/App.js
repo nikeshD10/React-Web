@@ -15,6 +15,8 @@ export default class App extends Component {
   }
 
   componentDidMount() {
+    // fetch is method in windows object it helps to make request to the server
+
     fetch("https://jsonplaceholder.typicode.com/users")
       .then((response) => response.json())
       .then((users) => this.setState({ robots: users }));
@@ -30,14 +32,18 @@ export default class App extends Component {
         .toLowerCase()
         .includes(this.state.searchField.toLowerCase());
     });
-    return (
-      <>
-        <div className="tc">
-          <p className="header">ROBOFRIENDS </p>
-          <SearchBox searchChange={this.onSearchChange} />
-          <CardList robots={filterRobots} />;
-        </div>
-      </>
-    );
+    if (this.state.robots.length === 0) {
+      return <h1> Loading </h1>;
+    } else {
+      return (
+        <>
+          <div className="tc">
+            <h1 className="header">ROBOFRIENDS </h1>
+            <SearchBox searchChange={this.onSearchChange} />
+            <CardList robots={filterRobots} />;
+          </div>
+        </>
+      );
+    }
   }
 }

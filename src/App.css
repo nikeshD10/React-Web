@@ -3,7 +3,7 @@
   src: local("SEGA LOGO FONT") url("../src/SEGA.TTF") format("TrueType");
 }
 
-.header {
+h1 {
   font-family: "SEGA LOGO FONT";
   font-weight: 200;
   font-size: 50px;
