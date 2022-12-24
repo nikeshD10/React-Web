@@ -28,25 +28,24 @@ export default class App extends Component {
   };
 
   render() {
-    const filterRobots = this.state.robots.filter((robots) => {
-      return robots.name
-        .toLowerCase()
-        .includes(this.state.searchField.toLowerCase());
+    const { robots, searchField } = this.state;
+
+    const filterRobots = robots.filter((robots) => {
+      return robots.name.toLowerCase().includes(searchField.toLowerCase());
     });
-    if (this.state.robots.length === 0) {
-      return <h1> Loading </h1>;
-    } else {
-      return (
-        <>
-          <div className="tc">
-            <h1 className="header">ROBOFRIENDS </h1>
-            <SearchBox searchChange={this.onSearchChange} />
-            <Scroll>
-              <CardList robots={filterRobots} />;
-            </Scroll>
-          </div>
-        </>
-      );
-    }
+
+    return !robots.length ? (
+      <h1> Loading </h1>
+    ) : (
+      <>
+        <div className="tc">
+          <h1 className="header">ROBOFRIENDS </h1>
+          <SearchBox searchChange={this.onSearchChange} />
+          <Scroll>
+            <CardList robots={filterRobots} />;
+          </Scroll>
+        </div>
+      </>
+    );
   }
 }
