@@ -1,6 +1,6 @@
 @font-face {
   font-family: "SEGA LOGO FONT";
-  src: local("SEGA LOGO FONT") url("../src/SEGA.TTF") format("TrueType");
+  src: local("SEGA LOGO FONT") url("../fonts/SEGA.TTF") format("TrueType");
 }
 
 h1 {

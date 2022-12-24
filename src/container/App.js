@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-import CardList from "./CardList.js";
-import { robots } from "./robot.js";
-import SearchBox from "./SearchBox.js";
+import CardList from "../components/CardList.js";
+// import { robots } from "./robot.js";
+import SearchBox from "../components/SearchBox.js";
 import "./App.css";
-import "./SEGA.TTF";
+import "../fonts/SEGA.TTF";
+import Scroll from "../components/Scroll.js";
 
 export default class App extends Component {
   constructor() {
@@ -40,7 +41,9 @@ export default class App extends Component {
           <div className="tc">
             <h1 className="header">ROBOFRIENDS </h1>
             <SearchBox searchChange={this.onSearchChange} />
-            <CardList robots={filterRobots} />;
+            <Scroll>
+              <CardList robots={filterRobots} />;
+            </Scroll>
           </div>
         </>
       );
