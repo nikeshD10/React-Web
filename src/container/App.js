@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import CardList from "../components/CardList.js";
 // import { robots } from "./robot.js";
 import SearchBox from "../components/SearchBox.js";
@@ -7,48 +7,37 @@ import "../fonts/SEGA.TTF";
 import Scroll from "../components/Scroll.js";
 import ErrorBoundry from "../components/ErrorBoundry.js";
 
-export default class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      robots: [],
-      searchField: "",
-    };
-  }
+export default function App() {
+  const [robots, setRobots] = useState([]);
+  const [searchField, setSearchField] = useState("");
 
-  componentDidMount() {
-    // fetch is method in windows object it helps to make request to the server
-
+  useEffect(() => {
     fetch("https://jsonplaceholder.typicode.com/users")
       .then((response) => response.json())
-      .then((users) => this.setState({ robots: users }));
-  }
+      .then((users) => setRobots(users));
+  }, []);
 
-  onSearchChange = (event) => {
-    this.setState({ searchField: event.target.value });
+  const onSearchChange = (event) => {
+    setSearchField(event.target.value);
   };
 
-  render() {
-    const { robots, searchField } = this.state;
+  const filterRobots = robots.filter((robot) => {
+    return robot.name.toLowerCase().includes(searchField.toLowerCase());
+  });
 
-    const filterRobots = robots.filter((robots) => {
-      return robots.name.toLowerCase().includes(searchField.toLowerCase());
-    });
-
-    return !robots.length ? (
-      <h1> Loading </h1>
-    ) : (
-      <>
-        <div className="tc">
-          <h1 className="header">ROBOFRIENDS </h1>
-          <SearchBox searchChange={this.onSearchChange} />
-          <Scroll>
-            <ErrorBoundry>
-              <CardList robots={filterRobots} />;
-            </ErrorBoundry>
-          </Scroll>
-        </div>
-      </>
-    );
-  }
+  return !robots.length ? (
+    <h1> Loading </h1>
+  ) : (
+    <>
+      <div className="tc">
+        <h1 className="header">ROBOFRIENDS </h1>
+        <SearchBox searchChange={onSearchChange} />
+        <Scroll>
+          <ErrorBoundry>
+            <CardList robots={filterRobots} />;
+          </ErrorBoundry>
+        </Scroll>
+      </div>
+    </>
+  );
 }
