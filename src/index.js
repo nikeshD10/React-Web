@@ -2,13 +2,23 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import { Provider } from "react-redux";
-import { createStore } from "redux";
+import { createStore, applyMiddleware } from "redux";
+import { createLogger } from "redux-logger";
+import { ThunkMiddleware } from "redux-thunk";
 import { searchRobots } from "./reducers";
 import App from "./container/App";
 import reportWebVitals from "./reportWebVitals";
 import "tachyons";
 
-const store = createStore(searchRobots);
+// Creating a middleware
+const logger = createLogger();
+const store = createStore(
+  searchRobots,
+  applyMiddleware(ThunkMiddleware, logger)
+);
+
+// Now to apply the middleware into the our redux app we need to do followings
+// by passing the applyMiddleware(logger) inside the store
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
