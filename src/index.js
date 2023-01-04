@@ -2,18 +2,20 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import { Provider } from "react-redux";
-import { createStore, applyMiddleware } from "redux";
+import { createStore, applyMiddleware, combineReducers } from "redux";
 import { createLogger } from "redux-logger";
 import { ThunkMiddleware } from "redux-thunk";
-import { searchRobots } from "./reducers";
+import { searchRobots, requestRobots } from "./reducers";
 import App from "./container/App";
 import reportWebVitals from "./reportWebVitals";
 import "tachyons";
 
+const rootReducer = combineReducers({ searchRobots, requestRobots });
+
 // Creating a middleware
 const logger = createLogger();
 const store = createStore(
-  searchRobots,
+  rootReducer,
   applyMiddleware(ThunkMiddleware, logger)
 );
 
