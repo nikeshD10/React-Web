@@ -4,19 +4,18 @@ import "./index.css";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware, combineReducers } from "redux";
 import { createLogger } from "redux-logger";
-import { ThunkMiddleware } from "redux-thunk";
+import thunkMiddleware from "redux-thunk";
 import { searchRobots, requestRobots } from "./reducers";
 import App from "./container/App";
 import reportWebVitals from "./reportWebVitals";
 import "tachyons";
 
-const rootReducer = combineReducers({ searchRobots, requestRobots });
-
 // Creating a middleware
 const logger = createLogger();
+const rootReducers = combineReducers({ searchRobots, requestRobots });
 const store = createStore(
-  rootReducer,
-  applyMiddleware(ThunkMiddleware, logger)
+  rootReducers,
+  applyMiddleware(thunkMiddleware, logger)
 );
 
 // Now to apply the middleware into the our redux app we need to do followings
