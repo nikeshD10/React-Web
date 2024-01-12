@@ -27,7 +27,7 @@ function App(props) {
   const { searchField, onSearchChange, robots, onRequestRobots, isPending } =
     props;
 
-  useEffect(() => onRequestRobots, []);
+  useEffect(() => onRequestRobots, [onRequestRobots]);
 
   const filterRobots = robots.filter((robot) => {
     return robot.name.toLowerCase().includes(searchField.toLowerCase());
